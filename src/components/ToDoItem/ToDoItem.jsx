@@ -8,10 +8,9 @@ const ToDoItem = ({item, removeToDoItem}) => {
     <div className={ToDoItemCss.toDoItem}>
         <div className={ToDoItemCss.toDoItemText}>{item.title}</div>
         <div className={ToDoItemCss.todoItemIconGroup}>
-            {item.importance && <div className='todo-item_important-icon'><BsPatchExclamationFill/></div>}
+            {item.importance && <div className={ToDoItemCss.todoItemImportantIcon}><BsPatchExclamationFill/></div>}
             <div onClick={()=>removeToDoItem(item.id)} className='todo-item_bin-icon'><RiDeleteBin2Line/></div>
         </div>
-
     </div>
   )
 }
