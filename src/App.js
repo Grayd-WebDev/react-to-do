@@ -10,10 +10,14 @@ function App() {
     setToDoItems([...toDoItems, { id: Date.now(), title, importance }]);
   };
 
+  const removeToDoItem = (id) => {
+    setToDoItems([...toDoItems.filter((item) => item.id !== id)]);
+  };
+
   return (
     <div className="App">
       <PostForm addToDoItem={addToDoItem} />
-      <ToDoList items={toDoItems} />
+      <ToDoList items={toDoItems} removeToDoItem={removeToDoItem} />
     </div>
   );
 }

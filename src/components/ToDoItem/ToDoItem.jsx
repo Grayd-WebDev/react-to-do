@@ -1,11 +1,17 @@
 import React from 'react'
 import {BsPatchExclamationFill} from 'react-icons/bs';
+import ToDoItemCss from "./toDoItem.module.css";
+import {RiDeleteBin2Line} from "react-icons/ri";
 
-const ToDoItem = ({item}) => {
+const ToDoItem = ({item, removeToDoItem}) => {
   return (
-    <div className='todo-item'>
-        <div className='todo-item_text'>{item.title}</div>
-        {item.importance && <div className='todo-item_important-icon'><BsPatchExclamationFill/></div>}
+    <div className={ToDoItemCss.toDoItem}>
+        <div className={ToDoItemCss.toDoItemText}>{item.title}</div>
+        <div className={ToDoItemCss.todoItemIconGroup}>
+            {item.importance && <div className='todo-item_important-icon'><BsPatchExclamationFill/></div>}
+            <div onClick={()=>removeToDoItem(item.id)} className='todo-item_bin-icon'><RiDeleteBin2Line/></div>
+        </div>
+
     </div>
   )
 }

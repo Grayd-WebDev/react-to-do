@@ -27,6 +27,10 @@
     border: 1px dashed rgb(181, 147, 249);
     transition: 0.4s;
 }
+.postForm{
+    max-width: 600px;
+    margin: auto;
+};
 .toDoTextBtn:hover{
     background-color:rgb(89, 69, 215);
     border: 1px dashed #fff;
@@ -37,8 +41,4 @@
     right: 75px;
     top: 50%;
     transform: translate(0, -50%);
-}
-.postForm{
-    max-width: 600px;
-    margin: auto;
 }

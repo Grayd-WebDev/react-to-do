@@ -1,0 +1,28 @@
+.toDoItem{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.toDoItemText::before{
+    content: "";
+    display: block;
+    width: 35px;
+    height: 3px;
+    background-color: rgb(89, 69, 215);
+    position: absolute;
+    left: -55px;
+    top: 56%;
+    transform: translate(0, -50%) rotate(15deg)
+}
+.toDoItemText{
+    font-size: 35px;
+}
+.todoItemIconGroup{
+    display: flex;
+    flex-direction: row;
+    font-size: 25px;
+    margin-left: 20px;
+    cursor: pointer;
+    color: rgb(89, 69, 215);
+}
