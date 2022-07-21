@@ -1,0 +1,44 @@
+.importanceIcon{
+    font-size: 30px;
+    color: rgb(196, 37, 37);
+    cursor: pointer;
+}
+.toDoTextInput{
+    font-size: 28px;
+    padding: 14px;
+    width: 100%;
+    margin: 10px 0px 10px 10px;
+    border-bottom: medium dashed rgb(89, 69, 215);
+    border-radius: 0;
+}
+.toDoForm{
+    position: relative;
+}
+.postInputWithBtn{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+.toDoTextBtn{
+    font-weight: bold;
+    margin: 10px 0 10px 0;
+    color: rgb(89, 69, 215);
+    background-color: #fff;
+    border: 1px dashed rgb(181, 147, 249);
+    transition: 0.4s;
+}
+.toDoTextBtn:hover{
+    background-color:rgb(89, 69, 215);
+    border: 1px dashed #fff;
+    color: #fff;
+}
+.formExclamationIcon{
+    position: absolute;
+    right: 75px;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.postForm{
+    max-width: 600px;
+    margin: auto;
+}
