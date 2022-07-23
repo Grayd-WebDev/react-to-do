@@ -42,7 +42,7 @@ const PostForm = ({addToDoItem}) => {
             onClick={toggleIsActiveIcon}
             onMouseLeave={onHoverIcon}
             className={PostFormCss.importanceIcon}/>
-            : 
+            :
             <BsPatchExclamation
             onMouseEnter={()=>setIsActiveIcon(true)} 
             className={PostFormCss.importanceIcon}/>}

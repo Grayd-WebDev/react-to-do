@@ -1,0 +1,50 @@
+.ProfileMenu{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.ProfileMenuIcon{
+    position: relative;
+    z-index: 3;
+    font-size: 27px;
+    color: rgb(89, 69, 215);
+    cursor: pointer;
+}
+.hiddenProfileMenu{
+    position: absolute;
+    z-index: 2;
+    right: 10px;
+    top: 5px;
+    height: 130px;
+    width: 130px;
+    transform-origin: top right;
+    border-radius: 100% 50% 100% 84%;
+    background: white;
+    transition: 0.4s;
+}
+
+.hiddenProfileMenuWrapper{
+    position: relative;
+}
+
+.hiddenProfileMenuWrapper a{
+    position: absolute;
+    left: 10;
+    top: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #5945d7;
+    border: #5945d7;
+    padding: 9px;
+    transition: 0.4s;
+    text-decoration: none;
+}
+.hiddenProfileMenuWrapper a:last-child{
+    top: 60px;
+    left: 30px;
+}
+
+.hiddenProfileMenuWrapper a:hover{
+    color: white !important;
+    background: #5945d7;
+}

@@ -3,14 +3,6 @@
     color: rgb(196, 37, 37);
     cursor: pointer;
 }
-.toDoTextInput{
-    font-size: 28px;
-    padding: 14px;
-    width: 100%;
-    margin: 10px 0px 10px 10px;
-    border-bottom: medium dashed rgb(89, 69, 215);
-    border-radius: 0;
-}
 .toDoForm{
     position: relative;
 }
@@ -27,10 +19,6 @@
     border: 1px dashed rgb(181, 147, 249);
     transition: 0.4s;
 }
-.postForm{
-    max-width: 600px;
-    margin: auto;
-};
 .toDoTextBtn:hover{
     background-color:rgb(89, 69, 215);
     border: 1px dashed #fff;
@@ -41,4 +29,16 @@
     right: 75px;
     top: 50%;
     transform: translate(0, -50%);
+}
+.postForm{
+    max-width: 600px;
+    margin: auto;
+}
+.toDoTextInput{
+    font-size: 28px !important;
+    padding: 14px !important;
+    width: 100% !important;
+    margin: 10px 0px 10px 10px !important;
+    border-bottom: medium dashed rgb(89, 69, 215) !important;
+    border-radius: 0 !important;
 }
