@@ -4,13 +4,24 @@ import { useState } from 'react'
 const RegisterPage = () => {
   const [registerData, setRegister] = useState({});
     const onChangeForm = (e) => {
-        setRegister({...registerData ,[e.target.name]: [e.target.name]});
-    console.log(registerData);
+      const target = e.target;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const name = target.name;
+  
+      setRegister({
+        ...registerData,
+        [name]: value
+      });
+    }
+    const onFormSend = () => {
+      console.log(registerData);
+      setRegister({email: "", password:""});
     }
   return (
     <div className='register'>
-        <input type="text" onChange={onChangeForm} value={registerData.password}/>
-        <input type="text" onChange={onChangeForm} value={registerData.email}/>
+        <input type="text" name="email" onChange={onChangeForm} value={registerData.email}/>
+        <input type="text" name="password" onChange={onChangeForm} value={registerData.password}/>
+        <button onClick={onFormSend}>Send</button>
     </div>
   );
 }
