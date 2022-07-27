@@ -15,6 +15,15 @@ class UserController {
       console.log(error);
     }
   }
+  async activate(req, res, next) {
+    try {
+      const activationLink = req.params.link;
+      await UserService.activate(activationLink);
+      return res.redirect(process.env.CLIENT_URL);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   async login(req, res, next) {
     try {
     } catch (error) {

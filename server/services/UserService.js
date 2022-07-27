@@ -14,7 +14,7 @@ class UserService {
       }
       const hashPassword = await bcrypt.hash(password, 2);
       const activationLink = v4();
-
+      console.log(activationLink);
       const newUser = await UserModel.create({
         email,
         password: hashPassword,
@@ -34,6 +34,14 @@ class UserService {
     } catch (e) {
       throw new Error(e);
     }
+  }
+  async activate(activationLink) {
+    const user = await UserModel.findOne({ activationLink });
+    if (!user) {
+      throw new Error("Incorrect activation link!");
+    }
+    user.isActivated = true;
+    await user.save();
   }
 }
 export default UserService;
