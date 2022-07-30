@@ -1,8 +1,21 @@
 import UserService from "../services/UserService.js";
+import { validationResult } from "express-validator";
+import ApiError from "../exceptions/ApiError.js";
 
 class UserController {
   async registration(req, res, next) {
     try {
+      const errors = validationResult(req);
+      console.log("dd");
+
+      if (!errors.isEmpty()) {
+        return next(
+          ApiError.BadRequest(
+            "Validation error, please check your credentials.",
+            errors.array()
+          )
+        );
+      }
       const { email, password } = req.body;
 
       const userData = await UserService.registration(email, password);
@@ -26,8 +39,24 @@ class UserController {
   }
   async login(req, res, next) {
     try {
+      const { email, password } = req.body;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(
+          ApiError.BadRequest(
+            "Something is wrong with credentials",
+            errors.array()
+          )
+        );
+      }
+      const userData = await UserService.login(email, password);
+      res.cookie("refreshToken", userData.refreshToken, {
+        maxAge: 15 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
+      return res.status(200).json({ ...userData });
     } catch (error) {
-      console.log(error);
+      next(ApiError.BadRequest(error));
     }
   }
   async refresh(req, res, next) {
