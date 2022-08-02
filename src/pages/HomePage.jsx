@@ -1,7 +1,7 @@
 import React from 'react';
 
-import PostForm from '../PostForm/PostForm';
-import ToDoList from '../ToDoList/ToDoList';
+import PostForm from '../components/PostForm/PostForm';
+import ToDoList from '../components/ToDoList/ToDoList';
 
 const HomePage = ({addToDoItem, toDoItems, removeToDoItem}) => {
   return (

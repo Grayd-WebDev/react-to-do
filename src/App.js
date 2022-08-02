@@ -7,13 +7,14 @@ import ToDoList from "./components/ToDoList/ToDoList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import RegisterPage from "./components/pages/RegisterPage";
-import LoginPage from "./components/pages/LoginPage";
-import HomePage from "./components/pages/HomePage";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
 import Layout from "./components/Layout/Layout";
 
 function App() {
   const [toDoItems, setToDoItems] = useState([]);
+  const [userAuth, setUserAuth] = useState(null);
 
   const addToDoItem = (title, importance) => {
     setToDoItems([...toDoItems, { id: Date.now(), title, importance }]);
@@ -26,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout userAuth={userAuth} />}>
           <Route
             index
             element={
@@ -38,7 +39,10 @@ function App() {
             }
           />
           <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
+          <Route
+            path="register"
+            element={<RegisterPage setUserAuth={setUserAuth} />}
+          />
         </Route>
       </Routes>
     </div>

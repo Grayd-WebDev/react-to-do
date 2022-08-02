@@ -21,7 +21,7 @@ class UserService {
         activationLink,
       });
 
-      await MailService.sendActivationMail(email, activationLink);
+      // await MailService.sendActivationMail(email, activationLink);
 
       const userDto = new UserDto(newUser);
       const tokens = await TokenService.generateTokens({ ...userDto });

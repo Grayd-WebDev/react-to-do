@@ -6,13 +6,15 @@ import ProfileMenu from '../ProfileMenu/ProfileMenu';
 
 import "./Layout.css";
 
-const Layout = () => {
+const Layout = ({userAuth}) => {
   return (
     <div className='Layout'>
-      <div className="mainSection">
+      <div className="headerSection">
         <MainNavigation/>
+        <ProfileMenu userAuth={userAuth}/>
+        </div>
+      <div className="mainSection">
         <Outlet/>
-        <ProfileMenu />
       </div>
     </div>
   )
