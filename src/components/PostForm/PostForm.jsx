@@ -2,13 +2,15 @@ import React from 'react'
 import { useState } from 'react';
 import PostFormCss from "./PostForm.module.css";
 import {BsPatchExclamation, BsPatchExclamationFill} from 'react-icons/bs';
-import { IconContext } from 'react-icons/lib';
+import { useSelector } from 'react-redux';
 
 const PostForm = ({addToDoItem}) => {
   const [toDoText, setToDoText] = useState('');
   const [isActiveIcon, setIsActiveIcon] = useState(false);
   const [isIconClicked, setIsIconClicked] = useState(false);
 
+  const {toDos} = useSelector(state=>state.main);
+  
   const onToDoTextChange = (e)=>{
     setToDoText(e.target.value);
   };

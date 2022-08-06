@@ -31,8 +31,7 @@ const AuthForm = ({userAuth, authFn, setUserAuth, page}) => {
         setIsLoading(true);
         setErrorData({});
         authFn(email, password).then((res)=>{
-          setUserAuth(res.data.userData);
-          debugger;
+          setUserAuth(res.data.userDto);
           navigate('/', {replace:true});
         }).catch((err)=>{
           if(Object.keys(err.response.data).length > 0){

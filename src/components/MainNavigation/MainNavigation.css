@@ -51,6 +51,7 @@
 .hiddenMenuItems{
     position: absolute;
     width: 70%;
+    z-index: 7;
     height: 100vh;
     background-color: #fff;
 }

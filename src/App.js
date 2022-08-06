@@ -1,9 +1,5 @@
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
-
-import ProfileMenu from "./components/ProfileMenu/ProfileMenu";
-import PostForm from "./components/PostForm/PostForm";
-import ToDoList from "./components/ToDoList/ToDoList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -14,7 +10,7 @@ import Layout from "./components/Layout/Layout";
 
 function App() {
   const [toDoItems, setToDoItems] = useState([]);
-  const [userAuth, setUserAuth] = useState(null);
+  const [userAuth, setUserAuth] = useState({});
 
   const addToDoItem = (title, importance) => {
     setToDoItems([...toDoItems, { id: Date.now(), title, importance }]);
@@ -23,6 +19,7 @@ function App() {
   const removeToDoItem = (id) => {
     setToDoItems([...toDoItems.filter((item) => item.id !== id)]);
   };
+  console.log("userAuth from App", userAuth);
 
   return (
     <div className="App">
@@ -38,7 +35,10 @@ function App() {
               />
             }
           />
-          <Route path="login" element={<LoginPage />} />
+          <Route
+            path="login"
+            element={<LoginPage setUserAuth={setUserAuth} />}
+          />
           <Route
             path="register"
             element={<RegisterPage setUserAuth={setUserAuth} />}

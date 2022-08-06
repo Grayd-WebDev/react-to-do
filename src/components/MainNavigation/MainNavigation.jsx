@@ -13,10 +13,12 @@ const MainNavigation = () => {
     {title: "Registration", hasChild: 0, link: "/register"}
   ];
 
-  const onClickToggleBars = (e) =>{
+  const onClickToggleBars = (e) => {
     e.stopPropagation();
+    console.log(e.target);
     setToggleMenu(!toggleMenu);
   }
+  
 
   return (
     <div className='mainNavigation'>
@@ -26,7 +28,6 @@ const MainNavigation = () => {
         <span></span>
       </div>
       <div className={`hiddenToggleMenuWrapper ${toggleMenu?"toggleActive":""}`} onClick={onClickToggleBars}>
-        
         <div className='hiddenMenuItems'>
           <div className='closeMenuBtn' onClick={onClickToggleBars}>
             <span></span>
