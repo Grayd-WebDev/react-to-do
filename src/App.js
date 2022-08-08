@@ -7,17 +7,18 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Layout from "./components/Layout/Layout";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [toDoItems, setToDoItems] = useState([]);
+  const { toDos } = useSelector((state) => state.main);
   const [userAuth, setUserAuth] = useState({});
 
   const addToDoItem = (title, importance) => {
-    setToDoItems([...toDoItems, { id: Date.now(), title, importance }]);
+    // setToDoItems([...toDoItems, { id: Date.now(), title, importance }]);
   };
 
   const removeToDoItem = (id) => {
-    setToDoItems([...toDoItems.filter((item) => item.id !== id)]);
+    // setToDoItems([...toDoItems.filter((item) => item.id !== id)]);
   };
   console.log("userAuth from App", userAuth);
 
@@ -25,16 +26,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Layout userAuth={userAuth} />}>
-          <Route
-            index
-            element={
-              <HomePage
-                removeToDoItem={removeToDoItem}
-                addToDoItem={addToDoItem}
-                toDoItems={toDoItems}
-              />
-            }
-          />
+          <Route index element={<HomePage />} />
           <Route
             path="login"
             element={<LoginPage setUserAuth={setUserAuth} />}

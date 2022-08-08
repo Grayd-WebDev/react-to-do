@@ -3,7 +3,7 @@ import React from 'react';
 import PostForm from '../components/PostForm/PostForm';
 import ToDoList from '../components/ToDoList/ToDoList';
 
-const HomePage = ({addToDoItem, toDoItems, removeToDoItem}) => {
+const HomePage = () => {
   return (
     <div>
       <div className="SomeFn">
@@ -11,8 +11,8 @@ const HomePage = ({addToDoItem, toDoItems, removeToDoItem}) => {
         Profile or File exchenge btween users of the app. */}
       </div>
       <div className="ToDoMain">
-        <PostForm addToDoItem={addToDoItem} />
-        <ToDoList items={toDoItems} removeToDoItem={removeToDoItem} />
+        <PostForm/>
+        <ToDoList/>
       </div>
     </div>
   )

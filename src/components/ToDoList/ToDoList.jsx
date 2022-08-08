@@ -1,11 +1,14 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import ToDoItem from '../ToDoItem/ToDoItem';
 import ToDoListCss from "./ToDoList.module.css";
 
-const ToDoList = ({items, removeToDoItem}) => {
+
+const ToDoList = () => {
+  const {toDos} = useSelector(state => state.main);
   return (
     <div className={ToDoListCss.toDoList}>
-        {items.map((item)=><ToDoItem removeToDoItem={removeToDoItem} item={item} key={item.id}/>)}
+        {toDos.map((item)=><ToDoItem item={item} key={item.id}/>)}
     </div>
   )
 }

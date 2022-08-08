@@ -1,22 +1,29 @@
-import React from 'react'
-import { useState } from 'react';
-import PostFormCss from "./PostForm.module.css";
-import {BsPatchExclamation, BsPatchExclamationFill} from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react'
 
-const PostForm = ({addToDoItem}) => {
+import { useDispatch } from 'react-redux';
+import {addToDo} from "../../store/slices/mainSlice";
+
+import {BsPatchExclamation, BsPatchExclamationFill} from 'react-icons/bs';
+import PostFormCss from "./PostForm.module.css";
+
+const PostForm = () => {
   const [toDoText, setToDoText] = useState('');
   const [isActiveIcon, setIsActiveIcon] = useState(false);
   const [isIconClicked, setIsIconClicked] = useState(false);
-
-  const {toDos} = useSelector(state=>state.main);
+  const dispatch = useDispatch();
   
   const onToDoTextChange = (e)=>{
     setToDoText(e.target.value);
   };
 
   const onToDoSubmit = ()=>{
-    addToDoItem(toDoText, isActiveIcon);
+    const toDoData = {
+      id: Date.now(),
+      title: toDoText,
+      importance: isActiveIcon
+    }
+    
+    dispatch(addToDo(toDoData));
     setToDoText('');
     setIsActiveIcon(false);
     setIsIconClicked(false);
