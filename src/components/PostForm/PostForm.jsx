@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux';
 import {addToDo} from "../../store/slices/mainSlice";
-
 import {BsPatchExclamation, BsPatchExclamationFill} from 'react-icons/bs';
 import PostFormCss from "./PostForm.module.css";
 
@@ -10,6 +9,7 @@ const PostForm = () => {
   const [toDoText, setToDoText] = useState('');
   const [isActiveIcon, setIsActiveIcon] = useState(false);
   const [isIconClicked, setIsIconClicked] = useState(false);
+
   const dispatch = useDispatch();
   
   const onToDoTextChange = (e)=>{

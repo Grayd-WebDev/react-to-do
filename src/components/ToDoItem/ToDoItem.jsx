@@ -11,12 +11,15 @@ import { BsPatchExclamationFill } from 'react-icons/bs';
 
 const ToDoItem = ({item}) => {
   const dispatch = useDispatch();
+  const onRemoveItem = () =>{
+    dispatch(removeToDo(item.id));
+  }
   return (
     <div className={ToDoItemCss.toDoItem}>
         <div className={ToDoItemCss.toDoItemText}>{item.title}</div>
         <div className={ToDoItemCss.todoItemIconGroup}>
             {item.importance && <div className={ToDoItemCss.todoItemImportantIcon}><BsPatchExclamationFill/></div>}
-            <div onClick={dispatch(removeToDo(item.id))} className='todo-item_bin-icon'><RiDeleteBin2Line/></div>
+            <div onClick={onRemoveItem} className='todo-item_bin-icon'><RiDeleteBin2Line/></div>
         </div>
     </div>
   )

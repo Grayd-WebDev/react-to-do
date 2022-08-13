@@ -57,10 +57,25 @@ class UserController {
       next(ApiError.BadRequest(error));
     }
   }
+  async logout(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      const token = await UserService.logout(refreshToken);
+
+      res.clearCookie("refreshToken");
+      return res.json(token);
+    } catch (error) {
+      next(ApiError.BadRequest(error));
+    }
+  }
   async refresh(req, res, next) {
     try {
+      const { refreshToken } = req.cookies;
+      const token = await UserService.refresh(refreshToken);
+
+      return res.status(200).json({ token });
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
   async activate(req, res, next) {

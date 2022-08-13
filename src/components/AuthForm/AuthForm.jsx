@@ -33,6 +33,7 @@ const AuthForm = ({userAuth, authFn, setUserAuth, page}) => {
         authFn(email, password).then((res)=>{
           setUserAuth(res.data.userDto);
           navigate('/', {replace:true});
+          localStorage.setItem(res.data.accessToken)
         }).catch((err)=>{
           if(Object.keys(err.response.data).length > 0){
             return setErrorData(err.response.data);

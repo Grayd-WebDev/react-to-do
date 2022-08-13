@@ -11,7 +11,9 @@ class UserService {
     try {
       const candidate = await UserModel.findOne({ email });
       if (candidate) {
-        throw new Error(`User with the mail ${email} is already exist!`);
+        throw ApiError.BadRequest(
+          `User with the mail ${email} is already exist!`
+        );
       }
       const hashPassword = await bcrypt.hash(password, 3);
       const activationLink = v4();
@@ -32,7 +34,7 @@ class UserService {
         user: userDto,
       };
     } catch (e) {
-      throw new Error(e);
+      throw ApiError.BadRequest(e);
     }
   }
 
@@ -54,10 +56,34 @@ class UserService {
   async activate(activationLink) {
     const user = await UserModel.findOne({ activationLink });
     if (!user) {
-      throw new Error("Incorrect activation link!");
+      throw ApiError.BadRequest("Incorrect activation link!");
     }
     user.isActivated = true;
     await user.save();
+  }
+
+  async logout(refreshToken) {
+    const token = await TokenService.removeToken(refreshToken);
+    return token;
+  }
+
+  async refresh(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.UnauthorizedError();
+    }
+    const userData = TokenService.validateRefreshToken(refreshToken);
+    const tokenFromDb = await TokenService.findToken(refreshToken);
+
+    if (!userData || !tokenFromDb) {
+      throw ApiError.UnauthorizedError();
+    }
+
+    const user = await UserModel.findById(userData.id);
+    const userDto = new UserDto(user);
+    const tokens = await TokenService.generateTokens({ ...userDto });
+    await TokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return { userDto, ...tokens };
   }
 }
 export default UserService;

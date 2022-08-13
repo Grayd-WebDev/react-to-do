@@ -13,15 +13,6 @@ function App() {
   const { toDos } = useSelector((state) => state.main);
   const [userAuth, setUserAuth] = useState({});
 
-  const addToDoItem = (title, importance) => {
-    // setToDoItems([...toDoItems, { id: Date.now(), title, importance }]);
-  };
-
-  const removeToDoItem = (id) => {
-    // setToDoItems([...toDoItems.filter((item) => item.id !== id)]);
-  };
-  console.log("userAuth from App", userAuth);
-
   return (
     <div className="App">
       <Routes>

@@ -3,7 +3,6 @@ import TokenModel from "../models/TokenModel.js";
 
 class TokenService {
   generateTokens(payload) {
-    console.log(payload);
     const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {
       expiresIn: "15m",
     });
@@ -14,6 +13,24 @@ class TokenService {
     return { accessToken, refreshToken };
   }
 
+  validateAccessToken(token) {
+    try {
+      const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+      return userData;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  validateRefreshToken(token) {
+    try {
+      const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+      return userData;
+    } catch (e) {
+      return null;
+    }
+  }
+
   async saveToken(userId, refreshToken) {
     let tokenData = await TokenModel.findOne({ user: userId });
     if (tokenData) {
@@ -21,6 +38,16 @@ class TokenService {
       return tokenData.save();
     }
     tokenData = await TokenModel.create({ refreshToken });
+  }
+
+  async findToken(refreshToken) {
+    const tokenData = await TokenModel.findOne({ refreshToken });
+    return tokenData;
+  }
+
+  async removeToken(refreshToken) {
+    const tokenData = await TokenModel.deleteOne({ refreshToken });
+    return tokenData;
   }
 }
 

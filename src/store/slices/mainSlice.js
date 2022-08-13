@@ -10,10 +10,7 @@ const mainSlice = createSlice({
       state.toDos.push(action.payload);
     },
     removeToDo(state, action) {
-      state.toDos.splice(
-        state.toDos.findIndex((i) => i.id === action.payload),
-        1
-      );
+      state.toDos = state.toDos.filter((i) => i.id !== action.payload);
     },
   },
 });
