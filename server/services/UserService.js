@@ -7,7 +7,7 @@ import { v4 } from "uuid";
 import ApiError from "../exceptions/ApiError.js";
 
 class UserService {
-  static async registration(email, password) {
+  async registration(email, password) {
     try {
       const candidate = await UserModel.findOne({ email });
       if (candidate) {
@@ -38,7 +38,7 @@ class UserService {
     }
   }
 
-  static async login(email, password) {
+  async login(email, password) {
     const user = await UserModel.findOne({
       email,
     });
@@ -86,4 +86,4 @@ class UserService {
     return { userDto, ...tokens };
   }
 }
-export default UserService;
+export default new UserService();

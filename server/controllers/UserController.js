@@ -72,16 +72,9 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
       const token = await UserService.refresh(refreshToken);
-
       return res.status(200).json({ token });
     } catch (error) {
       next(error);
-    }
-  }
-  async activate(req, res, next) {
-    try {
-    } catch (error) {
-      console.log(error);
     }
   }
   async getUsers(req, res, next) {

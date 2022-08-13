@@ -1,7 +1,7 @@
-import ApiError from "../exceptions/ApiError";
-import TokenService from "../services/TokenService";
+import ApiError from "../exceptions/ApiError.js";
+import TokenService from "../services/TokenService.js";
 
-export default function (req, res, next) {
+function authMiddleware(req, res, next) {
   try {
     const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) {
@@ -25,3 +25,5 @@ export default function (req, res, next) {
     return next(ApiError.UnauthorizedError());
   }
 }
+
+export default authMiddleware;

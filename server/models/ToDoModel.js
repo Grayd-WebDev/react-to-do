@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
+  title: { type: String, required: true },
   userId: { type: mongoose.Types.ObjectId, ref: "User" },
-  toDoes: { type: Array},
+  isImportant: { type: Boolean, default: false },
 });
 
 const UserModel = mongoose.model("ToDo", UserSchema);
