@@ -6,7 +6,7 @@ import ApiError from "../exceptions/ApiError.js";
 class ToDoService {
   async addToDo(title, isImportant, userData) {
     const user = await UserModel.findById(userData.id);
-    console.log(user);
+
     const newToDo = await ToDoModel.create({
       title,
       isImportant,
@@ -33,10 +33,12 @@ class ToDoService {
     const deletedToDo = await ToDoModel.deleteOne({ _id: ObjectId(id) });
     return { deletedToDo };
   }
-  async getToDos() {
-    const toDos = await ToDoModel.find();
+  async getToDos(user) {
+    const ObjectId = mongoose.Types.ObjectId;
+    const toDos = await ToDoModel.find({ userId: ObjectId(user.id) });
+
     console.log(toDos);
-    return {};
+    return { toDos };
   }
 }
 

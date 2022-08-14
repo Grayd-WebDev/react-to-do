@@ -10,8 +10,8 @@ class ToDoController {
       const toDo = await ToDoService.addToDo(title, isImportant, user);
 
       return res.status(200).json({ toDo, message: "To do is added" });
-    } catch (error) {
-      next(ApiError.BadRequest(error));
+    } catch (e) {
+      next(ApiError.BadRequest(e));
     }
   }
 
@@ -23,8 +23,17 @@ class ToDoController {
       const deletedToDo = await ToDoService.removeToDo(id, user);
 
       return res.status(200).json({ deletedToDo, message: "To do is deleted" });
-    } catch (error) {
-      next(ApiError.BadRequest(error));
+    } catch (e) {
+      next(ApiError.BadRequest(e));
+    }
+  }
+  async getToDos(req, res, next) {
+    try {
+      const user = req.user;
+      const toDos = await ToDoService.getToDos(user);
+      return res.status(200).json({ toDos });
+    } catch (e) {
+      next(ApiError.BadRequest(e));
     }
   }
 }
