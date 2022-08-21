@@ -19,7 +19,6 @@
     width: 130px;
     transform-origin: top right;
     border-radius: 100% 50% 100% 84%;
-    background: white;
     transition: 0.4s;
 }
 
@@ -27,24 +26,31 @@
     position: relative;
 }
 
-.hiddenProfileMenuWrapper a{
+.hiddenProfileMenuWrapper span, .hiddenProfileMenuWrapper a{
     position: absolute;
-    left: 10;
-    top: 0;
+    cursor: pointer;
+    left: 50px;
+    border-radius: 50%;
+    top: 0px;
     font-size: 24px;
     font-weight: bold;
     color: #5945d7;
     border: #5945d7;
     padding: 9px;
     transition: 0.4s;
+    display: flex;
     text-decoration: none;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
 }
-.hiddenProfileMenuWrapper a:last-child{
-    top: 60px;
-    left: 30px;
+.hiddenProfileMenuWrapper span:last-child, .hiddenProfileMenuWrapper a:last-child{
+    top: 50px;
+    left: 90px;
 }
 
-.hiddenProfileMenuWrapper a:hover{
+.hiddenProfileMenuWrapper span:hover, .hiddenProfileMenuWrapper a:hover{
     color: white !important;
     background: #5945d7;
 }

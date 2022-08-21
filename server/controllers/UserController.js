@@ -38,6 +38,8 @@ class UserController {
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
+      console.log(email, password);
+
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return next(
@@ -52,16 +54,19 @@ class UserController {
         maxAge: 15 * 24 * 60 * 60 * 1000,
         httpOnly: true,
       });
+
       return res.status(200).json({ ...userData });
     } catch (error) {
+      console.log("error");
+
       next(ApiError.BadRequest(error));
     }
   }
   async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
-      const token = await UserService.logout(refreshToken);
 
+      const token = await UserService.logout(refreshToken);
       res.clearCookie("refreshToken");
       return res.json(token);
     } catch (error) {
@@ -71,9 +76,12 @@ class UserController {
   async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
+      console.log(refreshToken);
       const token = await UserService.refresh(refreshToken);
       return res.status(200).json({ token });
     } catch (error) {
+      console.log(error);
+
       next(error);
     }
   }

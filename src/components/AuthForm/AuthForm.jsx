@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import {useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const AuthForm = ({userAuth, authFn, setUserAuth, page}) => {
     const [clientErrors, setClientErrors] = useState({});
-    const [errorData, setErrorData] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
     const [registerData, setRegister] = useState({});
-
+    const dispatch = useDispatch();
+    const {isLoading, error} = useSelector((state)=>state.auth)
     const navigate = useNavigate();
-    
+  
     const onChangeForm = (e) => {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-  
         setRegister({
           ...registerData,
           [name]: value
@@ -27,23 +27,7 @@ const AuthForm = ({userAuth, authFn, setUserAuth, page}) => {
     }
     const onFormSend =  () => {
         const {email, password} = registerData;
-        
-        setIsLoading(true);
-        setErrorData({});
-        authFn(email, password).then((res)=>{
-          setUserAuth(res.data.userDto);
-          navigate('/', {replace:true});
-          localStorage.setItem(res.data.accessToken)
-        }).catch((err)=>{
-          if(Object.keys(err.response.data).length > 0){
-            return setErrorData(err.response.data);
-          }
-          setErrorData({message: "We are sorry, but something went wrong on our server, please try a bit later :C"});
-          console.log(err);
-        })
-        .finally(()=>{
-          setIsLoading(false);
-        });
+        dispatch(authFn({email, password, navigate}));
     }
   return (
     <div className='AuthForm'>
@@ -57,7 +41,7 @@ const AuthForm = ({userAuth, authFn, setUserAuth, page}) => {
         <div className='auth_inner__info'>
           <span>{isLoading? <LoadingSpinner scaleSet={0.5}/>: ""}</span>
           <span>
-          {Object.keys(errorData).length > 0?errorData.message:""}
+          {Object.keys(error).length > 0?error.message:""}
           </span>
         </div>
       </div>

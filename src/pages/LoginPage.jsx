@@ -1,13 +1,15 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import AuthForm from '../components/AuthForm/AuthForm';
 import UserService from '../services/UserService';
+import { loginUser } from "../store/actionCreators";
 
 import "./LoginPage.css";
 
-const LoginPage = ({setUserAuth}) => {
+const LoginPage = () => {
   return (
     <div className='LoginPage'>
-      <AuthForm page="login" authFn={UserService.login} setUserAuth={setUserAuth}/>
+      <AuthForm page="login" authFn={loginUser}/>
     </div>
   )
 }

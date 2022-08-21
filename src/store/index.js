@@ -1,10 +1,11 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { toDosApi } from "./rtcApi";
-
-import mainSlice from "./slices/mainSlice.js";
+import authSlice from "./slices/authSlice";
+import mainSlice from "./slices/mainSlice";
 
 const rootReducer = combineReducers({
   main: mainSlice,
+  auth: authSlice,
   [toDosApi.reducerPath]: toDosApi.reducer,
 });
 
