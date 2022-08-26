@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {addToDo} from "../../store/slices/mainSlice";
 import {BsPatchExclamation, BsPatchExclamationFill} from 'react-icons/bs';
 import PostFormCss from "./PostForm.module.css";
@@ -11,7 +11,8 @@ const PostForm = () => {
   const [isIconClicked, setIsIconClicked] = useState(false);
 
   const dispatch = useDispatch();
-  
+  const authState = useSelector((state)=>state.auth);
+
   const onToDoTextChange = (e)=>{
     setToDoText(e.target.value);
   };
@@ -47,7 +48,7 @@ const PostForm = () => {
           </div>
           <div className={PostFormCss.formExclamationIcon}>
             {isActiveIcon ? 
-            <BsPatchExclamationFill 
+            <BsPatchExclamationFill
             onClick={toggleIsActiveIcon}
             onMouseLeave={onHoverIcon}
             className={PostFormCss.importanceIcon}/>
@@ -57,7 +58,10 @@ const PostForm = () => {
             className={PostFormCss.importanceIcon}/>}
           </div>
         </div>
-   
+        {!authState.isAuth &&
+        <div className={PostFormCss.attentionMessage}>
+          Attention pls, as you are not authorized your to do list is npt going to be saved!
+        </div>}
     </div>
   )
 }

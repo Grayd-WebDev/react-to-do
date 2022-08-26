@@ -1,15 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import http from "../../helpers/httpCommon";
 import axios from "axios";
+
 export const checkAuth = createAsyncThunk(
   "user/checkAuth",
   async (_, thunkApi) => {
     try {
-      const response = await http.get("refresh");
-      debugger;
-      return response.data;
+      const response = await axios.get("http://localhost:7000/api/refresh", {
+        withCredentials: true,
+        headers: {
+          authorization: localStorage.getItem("accessToken"),
+        },
+      });
+      return response.data.userData;
     } catch (error) {
-      debugger;
       return thunkApi.rejectWithValue(error);
     }
   }
@@ -19,7 +23,7 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password, navigate }, thunkApi) => {
     try {
-      const response = await http.post("/login", { email, password });
+      const response = await http.post("login", { email, password });
       localStorage.setItem("accessToken", response.data.accessToken);
       navigate("/", { replace: true });
 

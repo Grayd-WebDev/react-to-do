@@ -4,7 +4,7 @@ import "./LoadingSpinner.css";
 
 const LoadingSpinner = ({scaleSet}) => {
   return (
-    <div class="lds-roller" style={{transform:`scale(${scaleSet})`}}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <div className="lds-roller" style={{transform:`scale(${scaleSet})`}}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
   )
 }
 

@@ -77,11 +77,10 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
       console.log(refreshToken);
-      const token = await UserService.refresh(refreshToken);
-      return res.status(200).json({ token });
+      const userData = await UserService.refresh(refreshToken);
+      return res.status(200).json({ userData });
     } catch (error) {
       console.log(error);
-
       next(error);
     }
   }

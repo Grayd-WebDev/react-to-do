@@ -7,6 +7,7 @@ import ToDoItemCss from "./toDoItem.module.css";
 
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { BsPatchExclamationFill } from 'react-icons/bs';
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 
 
 const ToDoItem = ({item}) => {
@@ -16,6 +17,7 @@ const ToDoItem = ({item}) => {
   }
   return (
     <div className={ToDoItemCss.toDoItem}>
+     <CustomCheckbox/>
         <div className={ToDoItemCss.toDoItemText}>{item.title}</div>
         <div className={ToDoItemCss.todoItemIconGroup}>
             {item.importance && <div className={ToDoItemCss.todoItemImportantIcon}><BsPatchExclamationFill/></div>}

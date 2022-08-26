@@ -42,3 +42,20 @@
     border-bottom: medium dashed rgb(89, 69, 215) !important;
     border-radius: 0 !important;
 }
+.attentionMessage{
+    background-color: #8c4de526;
+    color: #2d0d59;
+    position: relative;
+    font-size: 18px;
+    padding: 10px 10px 10px 20px;
+}
+.attentionMessage::after{
+    content: "";
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: block;
+    width: 5px;
+    height: 100%;
+    background-color: #ffc27e;
+}
