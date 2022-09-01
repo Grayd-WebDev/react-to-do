@@ -13,9 +13,11 @@ import { checkAuth } from "./store/actionCreators";
 
 function App() {
   const dispatch = useDispatch();
+  const { isAuth } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(checkAuth());
+    console.log("Auth is checked");
   }, []);
 
   return (

@@ -6,9 +6,16 @@ import ToDoListCss from "./ToDoList.module.css";
 
 
 const ToDoList = () => {
-  let toDosData = [];
-  let state = useSelector(state => state);
   const {data} = useGetToDosQuery();
+  const state = useSelector(state => state);
+  
+  let toDosData = [];
+  
+  if(state.auth.isAuth){
+    toDosData = data.toDos.toDos;
+  }else{
+    toDosData = state.main.toDos;
+  }
   
   return (
     <div className={ToDoListCss.toDoList}>
