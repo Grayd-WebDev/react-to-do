@@ -12,14 +12,13 @@ class ToDoService {
       isImportant,
       userId: user._id,
     });
-    console.log(newToDo);
     return { newToDo };
   }
 
   async removeToDo(id, userData) {
     const ObjectId = mongoose.Types.ObjectId;
     const toDos = await ToDoModel.find({ userId: ObjectId(userData.id) });
-
+    console.log(id);
     if (!id) {
       throw ApiError.BadRequest("ToDo ID is unknown");
     }
@@ -37,7 +36,6 @@ class ToDoService {
     const ObjectId = mongoose.Types.ObjectId;
     const toDos = await ToDoModel.find({ userId: ObjectId(user.id) });
 
-    console.log(toDos);
     return { toDos };
   }
 }

@@ -4,29 +4,38 @@ import { useDispatch, useSelector } from 'react-redux';
 import {addToDo} from "../../store/slices/mainSlice";
 import {BsPatchExclamation, BsPatchExclamationFill} from 'react-icons/bs';
 import PostFormCss from "./PostForm.module.css";
+import { useAddToDoMutation } from '../../store/rtcApi/toDosApi';
 
 const PostForm = () => {
   const [toDoText, setToDoText] = useState('');
   const [isActiveIcon, setIsActiveIcon] = useState(false);
   const [isIconClicked, setIsIconClicked] = useState(false);
 
-  const dispatch = useDispatch();
-  const authState = useSelector((state)=>state.auth);
+  const [addUserToDo] = useAddToDoMutation();
 
+  const dispatch = useDispatch();
+  const {isAuth} = useSelector((state)=>state.auth);
+  
   const onToDoTextChange = (e)=>{
     setToDoText(e.target.value);
   };
 
-  const onToDoSubmit = ()=>{
+  const onToDoSubmit = async ()=>{
     const toDoData = {
       id: Date.now(),
       title: toDoText,
-      importance: isActiveIcon
+      importance: isActiveIcon,
+      isComplete: false
     }
     
-    dispatch(addToDo(toDoData));
+    if(!isAuth){
+      dispatch(addToDo(toDoData));
+    }else{
+      await addUserToDo(toDoData).unwrap();
+    }
+
     setToDoText('');
-    setIsActiveIcon(false);
+    setIsActiveIcon(false); 
     setIsIconClicked(false);
   };
 
@@ -58,7 +67,7 @@ const PostForm = () => {
             className={PostFormCss.importanceIcon}/>}
           </div>
         </div>
-        {!authState.isAuth &&
+        {!isAuth &&
         <div className={PostFormCss.attentionMessage}>
           Attention pls, as you are not authorized your to do list is npt going to be saved!
         </div>}

@@ -6,7 +6,7 @@ class ToDoController {
     try {
       const { title, isImportant } = req.body;
       const { user } = req;
-
+      console.log(req.body);
       const toDo = await ToDoService.addToDo(title, isImportant, user);
 
       return res.status(200).json({ toDo, message: "To do is added" });

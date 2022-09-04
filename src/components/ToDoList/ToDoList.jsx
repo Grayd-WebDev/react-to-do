@@ -1,22 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useGetToDosQuery } from '../../store/rtcApi';
 import ToDoItem from '../ToDoItem/ToDoItem';
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+
 import ToDoListCss from "./ToDoList.module.css";
 
 
 const ToDoList = () => {
-  const {data} = useGetToDosQuery();
-  const state = useSelector(state => state);
+  const {data, isLoading, isFetching} = useGetToDosQuery();
+  const {toDos} = useSelector(state => state.main);
+  const {isAuth} = useSelector(state => state.auth);
   
   let toDosData = [];
-  
-  if(state.auth.isAuth){
-    toDosData = data.toDos.toDos;
+
+  if(isAuth && data){
+    toDosData = data.toDos.toDos;  
   }else{
-    toDosData = state.main.toDos;
+    toDosData = toDos;
   }
-  
+
+  if(isLoading)
+   return <LoadingSpinner scaleSet={0.6}/>;
+   
   return (
     <div className={ToDoListCss.toDoList}>
         {toDosData.map((item)=><ToDoItem item={item} key={item.id}/>)}

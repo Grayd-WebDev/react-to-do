@@ -2,16 +2,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const toDosApi = createApi({
   reducerPath: "toDosApi",
+  tagTypes: ["Todo"],
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:7000/api/",
     credentials: "include",
     mode: "cors",
-    method: "get",
     prepareHeaders: (headers, { getState }) => {
       headers.set(
         "authorization",
         `Bearer ${localStorage.getItem("accessToken")}`
-      );  
+      );
       return headers;
     },
   }),
@@ -20,8 +20,25 @@ export const toDosApi = createApi({
       query: () => ({
         url: "todo",
       }),
+      providesTags: (result) => ["Todo"],
+    }),
+    addToDo: build.mutation({
+      query: (body) => ({
+        url: "todo",
+        method: "post",
+        body,
+      }),
+      invalidatesTags: ["Todo"],
+    }),
+    removeToDo: build.mutation({
+      query: (id) => ({
+        url: `todo/${id}`,
+        method: "delete",
+      }),
+      invalidatesTags: ["Todo"],
     }),
   }),
 });
 
-export const { useGetToDosQuery } = toDosApi;
+export const { useGetToDosQuery, useAddToDoMutation, useRemoveToDoMutation } =
+  toDosApi;

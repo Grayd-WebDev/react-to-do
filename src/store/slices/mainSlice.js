@@ -12,8 +12,11 @@ const mainSlice = createSlice({
     removeToDo(state, action) {
       state.toDos = state.toDos.filter((i) => i.id !== action.payload);
     },
+    checkToDo(state, action) {
+      state.toDos = state.toDos.filter((i) => i.id !== action.payload);
+    },
   },
 });
 
 export default mainSlice.reducer;
-export const { addToDo, removeToDo } = mainSlice.actions;
+export const { addToDo, removeToDo, checkToDo } = mainSlice.actions;
