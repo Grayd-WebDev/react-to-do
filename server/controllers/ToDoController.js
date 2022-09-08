@@ -29,7 +29,12 @@ class ToDoController {
   }
   async updateToDo(req, res, next) {
     try {
-      console.log(req.params);
+      const { id } = req.params;
+      if (!id) {
+        return next(ApiError.BadRequest("Item`s id is empty"));
+      }
+      const response = await ToDoService.updateToDo(id);
+      console.log(response);
       return res.status(200).json({ message: "TODO UPDATE" });
     } catch (e) {
       next(ApiError.BadRequest(e));

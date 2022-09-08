@@ -7,11 +7,12 @@ import { useDispatch } from 'react-redux';
 
 import "./CustomCheckbox.css";
 
-const CustomCheckbox = ({ item }) => {
+const CustomCheckbox = ({ item, isAuth }) => {
 
   const [checkMarkLength, setCheckMarkLength] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [ updateToDo ] = useUpdateToDoMutation();
+
   const dispatch = useDispatch();
 
   const checkboxAnimationRef = useSpringRef();
@@ -38,22 +39,23 @@ const CustomCheckbox = ({ item }) => {
 
     const onCheckItem = (item) => {
       dispatch(checkToDo(item._id));
-      updateToDo(item._id);
+      if(isAuth){
+        debugger;
+        updateToDo(item._id);
+      }
   }
   return (
-    <div className='customCheckbox'>
-<label>
+  <div className='customCheckbox'>
+    <label>
       <input
         type="checkbox"
         onChange={() => {
          setIsChecked(!isChecked);
          if(item){
-            debugger;
             onCheckItem(item);
           }
         }}
       />
-
           <animated.svg
               style={checkboxAnimationStyle}
               className={`checkbox ${isChecked ? "checkbox--active" : ""}`}
@@ -76,11 +78,8 @@ const CustomCheckbox = ({ item }) => {
             }}
           />
         </animated.svg>
-         
     </label>
-
     </div>
-
   )
 }
 

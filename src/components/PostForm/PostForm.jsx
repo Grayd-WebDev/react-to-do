@@ -32,7 +32,6 @@ const PostForm = () => {
     if(!isAuth){
       dispatch(addToDo(toDoData));
     }else{
-      debugger;
       addUserToDo(toDoData);
     }
 
@@ -71,7 +70,7 @@ const PostForm = () => {
         </div>
         {!isAuth &&
         <div className={PostFormCss.attentionMessage}>
-          Attention pls, as you are not authorized your to do list is npt going to be saved!
+          Attention pls, as you are not authorized your to do list is not going to be saved!
         </div>}
     </div>
   )

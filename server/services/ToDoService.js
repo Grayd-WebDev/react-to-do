@@ -15,6 +15,15 @@ class ToDoService {
     return { newToDo };
   }
 
+  async updateToDo(id) {
+    const toDoData = await ToDoModel.findById(id);
+    if (toDoData) {
+      toDoData.isComplete = !toDoData.isComplete;
+      return toDoData.save();
+    }
+    throw ApiError.BadRequest("ToDo data is not found");
+  }
+
   async removeToDo(id, userData) {
     const ObjectId = mongoose.Types.ObjectId;
     const toDos = await ToDoModel.find({ userId: ObjectId(userData.id) });

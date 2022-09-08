@@ -31,10 +31,9 @@ export const toDosApi = createApi({
       invalidatesTags: ["Todo"],
     }),
     updateToDo: build.mutation({
-      query: (body) => ({
-        url: "todo",
+      query: (id) => ({
+        url: `todo/${id}`,
         method: "put",
-        body,
       }),
       invalidatesTags: ["Todo"],
     }),
