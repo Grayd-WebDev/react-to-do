@@ -27,6 +27,14 @@ class ToDoController {
       next(ApiError.BadRequest(e));
     }
   }
+  async updateToDo(req, res, next) {
+    try {
+      console.log(req.params);
+      return res.status(200).json({ message: "TODO UPDATE" });
+    } catch (e) {
+      next(ApiError.BadRequest(e));
+    }
+  }
   async getToDos(req, res, next) {
     try {
       const user = req.user;

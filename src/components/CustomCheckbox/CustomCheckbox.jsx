@@ -1,34 +1,86 @@
 import React, { useState } from 'react';
+import { checkToDo } from "../../store/slices/mainSlice";
+
+import { animated, useSpring, config, useChain, useSpringRef } from "react-spring";
+import { useUpdateToDoMutation } from '../../store/rtcApi';
+import { useDispatch } from 'react-redux';
 
 import "./CustomCheckbox.css";
 
-const CustomCheckbox = () => {
-  const [isChecked, setIsChecked] = useState(false);
+const CustomCheckbox = ({ item }) => {
 
+  const [checkMarkLength, setCheckMarkLength] = useState(null);
+  const [isChecked, setIsChecked] = useState(false);
+  const [ updateToDo ] = useUpdateToDoMutation();
+  const dispatch = useDispatch();
+
+  const checkboxAnimationRef = useSpringRef();
+  const checkboxAnimationStyle = useSpring({
+    backgroundColor : isChecked ? "#808": "#fff",
+    borderColor : isChecked ? "#808": "#ddd",
+    config: config.gentle,
+    ref: checkboxAnimationRef
+  });
+
+  const checkMarkAnimationRef = useSpringRef();
+  const checkMarkLengthStyle = useSpring({
+    x: isChecked ? 0 : checkMarkLength,
+    config: config.gentle,
+    ref: checkMarkAnimationRef
+  });
+
+  useChain(
+    isChecked
+    ?[checkboxAnimationRef, checkMarkAnimationRef]
+    :[checkMarkAnimationRef, checkboxAnimationRef], 
+    [0, 0.1]
+    );
+
+    const onCheckItem = (item) => {
+      dispatch(checkToDo(item._id));
+      updateToDo(item._id);
+  }
   return (
+    <div className='customCheckbox'>
 <label>
       <input
         type="checkbox"
         onChange={() => {
-          setIsChecked(!isChecked);
+         setIsChecked(!isChecked);
+         if(item){
+            debugger;
+            onCheckItem(item);
+          }
         }}
       />
-            <svg
-        className={`checkbox ${isChecked ? "checkbox--active" : ""}`}
-        // This element is purely decorative so
-        // we hide it for screen readers
-        aria-hidden="true"
-        viewBox="0 0 15 11"
-        fill="none"
-      >
-        <path
-          d="M1 4.5L5 9L14 1"
-          strokeWidth="2"
-          stroke={isChecked ? "#fff" : "none"} // only show the checkmark when `isCheck` is `true`
-        />
-      </svg>
-      Don't you dare to check me!
+
+          <animated.svg
+              style={checkboxAnimationStyle}
+              className={`checkbox ${isChecked ? "checkbox--active" : ""}`}
+              // This element is purely decorative so
+              // we hide it for screen readers
+              aria-hidden="true"
+              viewBox="0 0 15 11"
+              fill="none"
+            >
+           <animated.path
+            d="M1 4.5L5 9L14 1"
+            strokeWidth="2"
+            strokeDasharray={checkMarkLength}
+            strokeDashoffset={checkMarkLengthStyle.x}
+            stroke="#fff"// only show the checkmark when `isCheck` is `true`
+            ref={(ref)=>{
+              if(ref){
+                setCheckMarkLength(ref.getTotalLength());
+              }
+            }}
+          />
+        </animated.svg>
+         
     </label>
+
+    </div>
+
   )
 }
 

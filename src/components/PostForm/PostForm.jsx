@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
-import {addToDo} from "../../store/slices/mainSlice";
-import {BsPatchExclamation, BsPatchExclamationFill} from 'react-icons/bs';
-import PostFormCss from "./PostForm.module.css";
+import { addToDo } from "../../store/slices/mainSlice";
+import { BsPatchExclamation, BsPatchExclamationFill } from 'react-icons/bs';
 import { useAddToDoMutation } from '../../store/rtcApi/toDosApi';
+
+import PostFormCss from "./PostForm.module.css";
 
 const PostForm = () => {
   const [toDoText, setToDoText] = useState('');
@@ -20,7 +21,7 @@ const PostForm = () => {
     setToDoText(e.target.value);
   };
 
-  const onToDoSubmit = async ()=>{
+  const onToDoSubmit = ()=>{
     const toDoData = {
       id: Date.now(),
       title: toDoText,
@@ -31,7 +32,8 @@ const PostForm = () => {
     if(!isAuth){
       dispatch(addToDo(toDoData));
     }else{
-      await addUserToDo(toDoData).unwrap();
+      debugger;
+      addUserToDo(toDoData);
     }
 
     setToDoText('');

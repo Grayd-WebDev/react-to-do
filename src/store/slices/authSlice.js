@@ -32,6 +32,9 @@ export const authSlice = createSlice({
     //Login
     [loginUser.pending.type]: (state, action) => {
       state.isLoading = true;
+      state.isAuth = false;
+      state.error = {};
+      state.user = {};
     },
     [loginUser.fulfilled.type]: (state, action) => {
       state.isLoading = false;
@@ -41,11 +44,16 @@ export const authSlice = createSlice({
     },
     [loginUser.rejected.type]: (state, action) => {
       state.isLoading = false;
+      state.isAuth = false;
       state.error = action.payload;
+      state.user = {};
     },
     //Logout
     [logoutUser.pending.type]: (state, action) => {
       state.isLoading = true;
+      state.isAuth = false;
+      state.error = {};
+      state.user = {};
     },
     [logoutUser.fulfilled.type]: (state, action) => {
       state.isLoading = false;
@@ -55,7 +63,9 @@ export const authSlice = createSlice({
     },
     [logoutUser.rejected.type]: (state, action) => {
       state.isLoading = false;
+      state.isAuth = false;
       state.error = action.payload;
+      state.user = {};
     },
   },
 });

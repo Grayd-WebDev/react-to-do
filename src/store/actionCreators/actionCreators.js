@@ -12,6 +12,9 @@ export const checkAuth = createAsyncThunk(
           authorization: localStorage.getItem("accessToken"),
         },
       });
+      if (response.data.userData.accessToken) {
+        localStorage.setItem("accessToken", response.data.userData.accessToken);
+      }
       return response.data.userData;
     } catch (error) {
       return thunkApi.rejectWithValue(error);

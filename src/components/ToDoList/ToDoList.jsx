@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux';
 import { useGetToDosQuery } from '../../store/rtcApi';
+
 import ToDoItem from '../ToDoItem/ToDoItem';
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
@@ -21,7 +22,7 @@ const ToDoList = () => {
   }
 
   if(isLoading)
-   return <LoadingSpinner scaleSet={0.6}/>;
+   return <LoadingSpinner scaleSet={0.5}/>;
    
   return (
     <div className={ToDoListCss.toDoList}>

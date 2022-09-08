@@ -23,6 +23,7 @@ router.post(
 router.post("/logout", UserController.logout);
 router.post("/todo", authMiddleware, ToDoController.addToDo);
 router.get("/todo", authMiddleware, ToDoController.getToDos);
+router.put("/todo", authMiddleware, ToDoController.updateToDo);
 router.delete("/todo/:id", authMiddleware, ToDoController.removeToDo);
 router.get("/activate/:link");
 router.get("/refresh", UserController.refresh);

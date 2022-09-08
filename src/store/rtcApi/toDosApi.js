@@ -30,6 +30,14 @@ export const toDosApi = createApi({
       }),
       invalidatesTags: ["Todo"],
     }),
+    updateToDo: build.mutation({
+      query: (body) => ({
+        url: "todo",
+        method: "put",
+        body,
+      }),
+      invalidatesTags: ["Todo"],
+    }),
     removeToDo: build.mutation({
       query: (id) => ({
         url: `todo/${id}`,
@@ -40,5 +48,9 @@ export const toDosApi = createApi({
   }),
 });
 
-export const { useGetToDosQuery, useAddToDoMutation, useRemoveToDoMutation } =
-  toDosApi;
+export const {
+  useGetToDosQuery,
+  useAddToDoMutation,
+  useRemoveToDoMutation,
+  useUpdateToDoMutation,
+} = toDosApi;
