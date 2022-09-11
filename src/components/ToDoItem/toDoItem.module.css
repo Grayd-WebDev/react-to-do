@@ -31,3 +31,14 @@
     color: rgb(196, 37, 37);
     margin-right: 10px;
 }
+.overCrossLineAnimated{
+    top: 50%;
+    transform: translate(-50%);
+    left: 14%;
+    position: absolute;
+    border-radius: 10px;
+    width: 10px;
+    height: 5px;
+    background-color: rgba(88, 69, 215, 0.636);
+
+}

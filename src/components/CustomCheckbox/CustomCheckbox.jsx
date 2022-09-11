@@ -17,21 +17,21 @@ const CustomCheckbox = ({ item, isAuth }) => {
 
   const checkboxAnimationRef = useSpringRef();
   const checkboxAnimationStyle = useSpring({
-    backgroundColor : isChecked ? "#808": "#fff",
-    borderColor : isChecked ? "#808": "#ddd",
+    backgroundColor : item.isComplete ? "#808": "#fff",
+    borderColor : item.isComplete ? "#808": "#ddd",
     config: config.gentle,
     ref: checkboxAnimationRef
   });
 
   const checkMarkAnimationRef = useSpringRef();
   const checkMarkLengthStyle = useSpring({
-    x: isChecked ? 0 : checkMarkLength,
+    x: item.isComplete ? 0 : checkMarkLength,
     config: config.gentle,
     ref: checkMarkAnimationRef
   });
 
   useChain(
-    isChecked
+    item.isComplete
     ?[checkboxAnimationRef, checkMarkAnimationRef]
     :[checkMarkAnimationRef, checkboxAnimationRef], 
     [0, 0.1]
@@ -40,7 +40,6 @@ const CustomCheckbox = ({ item, isAuth }) => {
     const onCheckItem = (item) => {
       dispatch(checkToDo(item._id));
       if(isAuth){
-        debugger;
         updateToDo(item._id);
       }
   }
@@ -50,7 +49,6 @@ const CustomCheckbox = ({ item, isAuth }) => {
       <input
         type="checkbox"
         onChange={() => {
-         setIsChecked(!isChecked);
          if(item){
             onCheckItem(item);
           }
@@ -58,7 +56,7 @@ const CustomCheckbox = ({ item, isAuth }) => {
       />
           <animated.svg
               style={checkboxAnimationStyle}
-              className={`checkbox ${isChecked ? "checkbox--active" : ""}`}
+              className={`checkbox ${item.isComplete ? "checkbox--active" : ""}`}
               // This element is purely decorative so
               // we hide it for screen readers
               aria-hidden="true"
