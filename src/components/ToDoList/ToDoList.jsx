@@ -1,43 +1,40 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 import { useGetToDosQuery } from '../../store/rtcApi';
+import { useSelector } from 'react-redux';
 
-import ToDoItem from '../ToDoItem/ToDoItem';
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import ToDoItem from '../ToDoItem/ToDoItem'
 
 import ToDoListCss from "./ToDoList.module.css";
-import { useTransition, animated } from 'react-spring';
-
 
 const ToDoList = () => {
-  const {data, isLoading, isFetching} = useGetToDosQuery();
   const {toDos} = useSelector(state => state.main);
   const {isAuth} = useSelector(state => state.auth);
-  
-  let toDosData = [];
+  const items = useGetToDosQuery();
 
-  if(isAuth && data){
-    toDosData = data.toDos.toDos;  
+  let toDosData = [];
+  // if(isAuth && !items.isLoading){
+  //   toDosData = [...items?.data?.toDos.toDos];
+  // }else{
+  //   toDosData = [...toDos];
+  // }
+
+  if(isAuth && !items.isLoading){
+    toDosData = [...items?.data?.toDos.toDos];
   }else{
-    toDosData = toDos;
+    toDosData = [...toDos];
   }
 
-  const transition = useTransition(toDosData, {
-    from: {x: -100, y:800, opacity: 0},
-    enter: {x: 0, y:0, opacity: 1},
-    leave: {x: 100, y: 800, opacity: 0},
-  });
+  if(items.isLoading  && !toDosData)
+    return <LoadingSpinner scaleSet={0.5}/>;
 
-  if(isLoading)
-   return <LoadingSpinner scaleSet={0.5}/>;
-   
   return (
     <div className={ToDoListCss.toDoList}>
-      {transition((style, item)=>{
-        return item? <ToDoItem style={style} item={item} key={item.id}/>: ""
-      })}
+       {toDosData.length>0?
+        toDosData.map((item)=><ToDoItem key={item._id} item={item}/>)
+       :<div>Empty!</div>}
     </div>
   )
 }
 
-export default ToDoList;
+export default React.memo(ToDoList);

@@ -10,7 +10,6 @@ import "./CustomCheckbox.css";
 const CustomCheckbox = ({ item, isAuth }) => {
 
   const [checkMarkLength, setCheckMarkLength] = useState(null);
-  const [isChecked, setIsChecked] = useState(false);
   const [ updateToDo ] = useUpdateToDoMutation();
 
   const dispatch = useDispatch();
@@ -41,19 +40,19 @@ const CustomCheckbox = ({ item, isAuth }) => {
       dispatch(checkToDo(item._id));
       if(isAuth){
         updateToDo(item._id);
-      }
+    }
   }
-  return (
-  <div className='customCheckbox'>
-    <label>
-      <input
-        type="checkbox"
-        onChange={() => {
-         if(item){
-            onCheckItem(item);
-          }
-        }}
-      />
+    return (
+    <div className='customCheckbox'>
+      <label>
+        <input
+          type="checkbox"
+          onChange={() => {
+          if(item){
+              onCheckItem(item);
+            }
+          }}
+        />
           <animated.svg
               style={checkboxAnimationStyle}
               className={`checkbox ${item.isComplete ? "checkbox--active" : ""}`}
@@ -81,4 +80,4 @@ const CustomCheckbox = ({ item, isAuth }) => {
   )
 }
 
-export default CustomCheckbox;
+export default React.memo(CustomCheckbox);

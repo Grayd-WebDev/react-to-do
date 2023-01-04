@@ -1,52 +1,70 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import FormInput from '../FormInput';
 
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
-const AuthForm = ({userAuth, authFn, setUserAuth, page}) => {
-    const [clientErrors, setClientErrors] = useState({});
-    const [registerData, setRegister] = useState({});
-    const dispatch = useDispatch();
-    const {isLoading, error} = useSelector((state)=>state.auth)
-    const navigate = useNavigate();
+const AuthForm = ({authFn, inputList, setPassword}) => {
+  const [formData, setFormData] = useState({});
+  const {auth} = useSelector((state)=>state)
   
-    const onChangeForm = (e) => {
-        const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-        setRegister({
-          ...registerData,
-          [name]: value
-        });
-  
-     /**
-      * Don`t forget to make client Validation. and u have state clientErrors.
-     */
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const onChangeForm = (e) => {
+      const target = e.target;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const name = target.name;
+      
+      /*
+        This password field is only for comparing 
+        password and confirm password fields in 
+        parent component RegisterPage.jsx; So i
+        just need it. =_=
+      */
+      if(name === "password"){
+        setPassword(value);
+      }
+
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+      console.log(name,value);
     }
-    const onFormSend =  () => {
-        const {email, password} = registerData;
+
+    const handleSubmit =  (e) => {
+        console.log(formData);
+        e.preventDefault();
+        const {email, password} = formData;
         dispatch(authFn({email, password, navigate}));
     }
-  return (
-    <div className='AuthForm'>
+
+    console.log(auth.error);
+
+    return (
+      <div className='AuthForm'>
+        <form onSubmit={handleSubmit}>
         <div className="auth_inner">
-        <div className="auth_inner_inputs">
-          <input placeholder='Email' type="text" name="email" onChange={onChangeForm} value={registerData.email}/>
-          <input placeholder='Password' type="password" name="password" onChange={onChangeForm} value={registerData.password}/>
-            {page === "register"? <input placeholder='Confirm password' type="password" name="confirmPassword" onChange={onChangeForm} value={registerData.confirmPassword}/>: null}
+          <div className="auth_inner_inputs">
+            {
+              inputList.map((input)=>{
+                return(
+                  <FormInput key={input.id} input={input} onChangeForm={onChangeForm} value={formData[input.name]}/>
+                );
+              })
+            }
+          </div>
+          <button type='submit' className='auth_inner_button'>Submit</button>
+          <div className='auth_inner__info'>
+            <span>{auth.isLoading && <LoadingSpinner scaleSet={0.5}/>}</span>
+            <span>{auth.error?.response?.status !== 401? auth.error?.response?.data?.message.replace(/(Error?)\w+(:?)/g, "") : ""}</span>
+          </div>
         </div>
-        <button className='auth_inner_button' onClick={onFormSend}>Submit</button>
-        <div className='auth_inner__info'>
-          <span>{isLoading? <LoadingSpinner scaleSet={0.5}/>: ""}</span>
-          <span>
-          {Object.keys(error).length > 0?error.message:""}
-          </span>
-        </div>
+        </form>
       </div>
-    </div>
-  )
+    )
 }
 
 export default AuthForm

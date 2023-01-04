@@ -1,7 +1,14 @@
 .importanceIcon{
     font-size: 30px;
-    color: rgb(196, 37, 37);
+    color: rgb(208, 208, 208);
     cursor: pointer;
+    transition: 0.2s;
+}
+.importanceIcon:hover{
+    fill: rgb(196, 37, 37);
+}
+.importanceIconActive{
+    fill: rgb(196, 37, 37);
 }
 .toDoForm{
     position: relative;
@@ -12,17 +19,20 @@
     flex-direction: row;
 }
 .toDoTextBtn{
+    box-sizing: border-box;
     font-weight: bold;
     margin: 10px 0 10px 0;
     color: rgb(89, 69, 215);
     background-color: #fff;
     border: 1px dashed rgb(181, 147, 249);
-    transition: 0.4s;
+    transition: 0.2s;
+    border-radius: 0 !important;
 }
 .toDoTextBtn:hover{
     background-color:rgb(89, 69, 215);
-    border: 1px dashed #fff;
+    border: 1px solid rgb(89, 69, 215);;
     color: #fff;
+    border-radius: 0 !important;
 }
 .formExclamationIcon{
     position: absolute;
@@ -36,11 +46,14 @@
 }
 .toDoTextInput{
     font-size: 28px !important;
-    padding: 14px !important;
+    padding: 14px 70px 14px 14px;
     width: 100% !important;
     margin: 10px 0px 10px 10px !important;
-    border-bottom: medium dashed rgb(89, 69, 215) !important;
     border-radius: 0 !important;
+    border-left: none;
+    border-right: none;
+    border: 1px dashed rgb(181, 147, 249);
+    border-right: none;
 }
 .attentionMessage{
     background-color: #8c4de526;
@@ -48,6 +61,8 @@
     position: relative;
     font-size: 18px;
     padding: 10px 10px 10px 20px;
+    width: calc(100% - 9px);
+    left: 9px;
 }
 .attentionMessage::after{
     content: "";

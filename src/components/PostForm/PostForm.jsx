@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addToDo } from "../../store/slices/mainSlice";
-import { BsPatchExclamation, BsPatchExclamationFill } from 'react-icons/bs';
+import { BsPatchExclamationFill } from 'react-icons/bs';
 import { useAddToDoMutation } from '../../store/rtcApi/toDosApi';
 
-import PostFormCss from "./PostForm.module.css";
+import "./PostForm.css";
 
 const PostForm = () => {
   const [toDoText, setToDoText] = useState('');
   const [isActiveIcon, setIsActiveIcon] = useState(false);
-  const [isIconClicked, setIsIconClicked] = useState(false);
 
   const [addUserToDo] = useAddToDoMutation();
 
@@ -22,10 +21,15 @@ const PostForm = () => {
   };
 
   const onToDoSubmit = ()=>{
+    if(toDoText.length === 0)
+      return
+
     const toDoData = {
-      id: Date.now(),
+      _id: Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1),
       title: toDoText,
-      importance: isActiveIcon,
+      isImportant: isActiveIcon,
       isComplete: false
     }
     
@@ -37,43 +41,31 @@ const PostForm = () => {
 
     setToDoText('');
     setIsActiveIcon(false); 
-    setIsIconClicked(false);
   };
 
-  const toggleIsActiveIcon = () => {
+  const onClickIcon = () => {
     setIsActiveIcon(!isActiveIcon);
-    setIsIconClicked(!isIconClicked);
   }
 
-  const onHoverIcon = () => {
-    if(!isIconClicked) setIsActiveIcon(false);
-  };
-
     return (
-    <div className={PostFormCss.postForm}>
-        <div className={PostFormCss.toDoForm}>
-          <div className={PostFormCss.postInputWithBtn}>
-            <input placeholder='Type...' className={PostFormCss.toDoTextInput + " form-control shadow-none"} onChange={onToDoTextChange} type="text" value={toDoText}/>
-            <button className={PostFormCss.toDoTextBtn} onClick={onToDoSubmit}>Add</button>
+    <div className="postForm">
+        <div className="toDoForm">
+          <div className="postInputWithBtn">
+            <input placeholder='Type...' className="toDoTextInput form-control shadow-none" onChange={onToDoTextChange} type="text" value={toDoText}/>
+            <button className="toDoTextBtn" onClick={onToDoSubmit}>Add</button>
           </div>
-          <div className={PostFormCss.formExclamationIcon}>
-            {isActiveIcon ? 
-            <BsPatchExclamationFill
-            onClick={toggleIsActiveIcon}
-            onMouseLeave={onHoverIcon}
-            className={PostFormCss.importanceIcon}/>
-            :
-            <BsPatchExclamation
-            onMouseEnter={()=>setIsActiveIcon(true)} 
-            className={PostFormCss.importanceIcon}/>}
+          <div className="formExclamationIcon">
+          <BsPatchExclamationFill
+            onClick={onClickIcon}
+            className={`importanceIcon ${isActiveIcon && "importanceIconActive"}`}/>
           </div>
         </div>
         {!isAuth &&
-        <div className={PostFormCss.attentionMessage}>
+        <div className="attentionMessage">
           Attention pls, as you are not authorized your to do list is not going to be saved!
         </div>}
     </div>
   )
 }
 
-export default PostForm;
+export default React.memo(PostForm);

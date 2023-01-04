@@ -42,6 +42,7 @@ class ToDoController {
   }
   async getToDos(req, res, next) {
     try {
+      console.log("asd");
       const user = req.user;
       const toDos = await ToDoService.getToDos(user);
       return res.status(200).json({ toDos });

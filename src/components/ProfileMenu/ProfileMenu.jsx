@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react'
-import {NavLink} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from "react-router-dom";
 import {isEmpty} from "../../helpers/helperFunctions.js";
 
 import { RiUserLine } from 'react-icons/ri';
@@ -9,12 +9,11 @@ import {FaSignInAlt} from "react-icons/fa";
 import {AiOutlineUserAdd} from "react-icons/ai";
 
 import ProfileMenuCss from "./ProfileMenuCss.module.css";
-import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../store/actionCreators';
 
 const ProfileMenu = () => {
     const [rolledOut, setRollOut] = useState(false);
-    const {isAuth, user} = useSelector((state)=>state.auth);
+    const {isAuth} = useSelector((state)=>state.auth);
     const dispatch = useDispatch();
 
     let hiddenProfileStyle = {
@@ -34,12 +33,21 @@ const ProfileMenu = () => {
         <div className={ProfileMenuCss.hiddenProfileMenuWrapper}>
             <div className={ProfileMenuCss.hiddenProfileMenu} style={hiddenProfileStyle} onMouseEnter={onHoverProfileIcon} onMouseLeave={onLeaveProfileIcon}>
                 {
-                    isAuth ? <><NavLink to={'/profile'}><FiSettings/></NavLink>
-                    <span><FiLogOut onClick={()=>{dispatch(logoutUser())}}/></span></>:<><NavLink to={'/login'}><FaSignInAlt/></NavLink>
+                 isAuth ?
+                 <>
+                    <NavLink to={'/profile'}><FiSettings/></NavLink>
+                    <span>
+                        <FiLogOut onClick={()=>{dispatch(logoutUser())}}/>
+                    </span>
+                 </>
+                 :
+                 <>
+                    <NavLink to={'/login'}><FaSignInAlt/></NavLink>
                     <NavLink to={'/register'}>
-<AiOutlineUserAdd/></NavLink></>
+                        <AiOutlineUserAdd/>
+                    </NavLink>
+                 </>
                 }
-                
             </div> 
             <RiUserLine onMouseEnter={onHoverProfileIcon} onMouseLeave={onLeaveProfileIcon} className={ProfileMenuCss.ProfileMenuIcon}/>
         </div>
@@ -47,4 +55,4 @@ const ProfileMenu = () => {
   )
 }
 
-export default ProfileMenu
+export default ProfileMenu;

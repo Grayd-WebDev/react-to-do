@@ -37,6 +37,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+
 export const logoutUser = createAsyncThunk(
   "user/logout",
   async (_, thunkApi) => {
@@ -49,3 +50,21 @@ export const logoutUser = createAsyncThunk(
     }
   }
 );
+
+
+export const registerUser = createAsyncThunk(
+  "user/register",
+  async ({ email, password, navigate }, thunkApi) => {
+    try {
+      console.log(email, password);
+      const response = await http.post("registration", { email, password });
+      localStorage.setItem("accessToken", response.data.accessToken);
+      navigate("/", { replace: true });
+
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+

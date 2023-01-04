@@ -9,6 +9,7 @@ import ApiError from "../exceptions/ApiError.js";
 class UserService {
   async registration(email, password) {
     try {
+      console.log(email, password);
       const candidate = await UserModel.findOne({ email });
       if (candidate) {
         throw ApiError.BadRequest(

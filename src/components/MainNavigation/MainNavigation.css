@@ -37,13 +37,24 @@
     height: 100vh;
     left: 0;
     top: 0;
-    background-color: #2f1a4c9a;
     transition: 0.3s;
     opacity: 0;
     visibility: hidden;
 }
+.hiddenBackground{
+    position: absolute;
+    z-index: 5;
+    width: 30%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    transition: 0.3s;
+    background-color: #2f1a4c9a;
+    opacity: 0;
+    visibility: hidden;
+}
 
-.hiddenToggleMenuWrapper.toggleActive{
+.hiddenToggleMenuWrapper.toggleActive > .hiddenBackground,.hiddenToggleMenuWrapper.toggleActive{
     opacity: 1;
     visibility: visible;
 }
@@ -147,4 +158,10 @@
     left: -8px;
     top: 2px;
     transform: rotate(-30deg);
+}
+
+@media screen and (max-width: 600px){
+    .mainNavigation{
+        margin: 10px 0 0 15px;
+    }
 }

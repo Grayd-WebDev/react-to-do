@@ -6,6 +6,7 @@ class UserController {
   async registration(req, res, next) {
     try {
       const errors = validationResult(req);
+      console.log(req.body);
       if (!errors.isEmpty()) {
         return next(
           ApiError.BadRequest(
@@ -15,7 +16,6 @@ class UserController {
         );
       }
       const { email, password } = req.body;
-
       const userData = await UserService.registration(email, password);
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -23,7 +23,7 @@ class UserController {
       });
       return res.status(200).json({ userData });
     } catch (error) {
-      console.log(error);
+      next(ApiError.BadRequest(error));
     }
   }
   async activate(req, res, next) {

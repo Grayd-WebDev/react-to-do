@@ -12,5 +12,8 @@ const rootReducer = combineReducers({
 export default configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(toDosApi.middleware),
+    getDefaultMiddleware({serializableCheck: false}).concat(toDosApi.middleware),
 });
+
+
+// Read an article about serializableCheck: false !!!!!!!!!!!!!!

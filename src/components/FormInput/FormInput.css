@@ -1,0 +1,11 @@
+.input-error{
+    color: red;
+    display: none;
+}
+.FormInput{
+    margin-bottom: 30px;
+}
+
+.FormInput>input:invalid[focused="true"] ~ span{
+    display: block;
+}

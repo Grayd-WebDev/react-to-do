@@ -54,3 +54,8 @@
     color: white !important;
     background: #5945d7;
 }
+@media screen and (max-width: 600px){
+    .ProfileMenu{
+        margin-right: 10px;
+    }
+}

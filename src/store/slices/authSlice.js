@@ -3,6 +3,7 @@ import {
   checkAuth,
   loginUser,
   logoutUser,
+  registerUser
 } from "../actionCreators/actionCreators";
 
 export const authSlice = createSlice({
@@ -62,6 +63,25 @@ export const authSlice = createSlice({
       state.user = {};
     },
     [logoutUser.rejected.type]: (state, action) => {
+      state.isLoading = false;
+      state.isAuth = false;
+      state.error = action.payload;
+      state.user = {};
+    },
+    //Register
+    [registerUser.pending.type]: (state, action) => {
+      state.isLoading = true;
+      state.isAuth = false;
+      state.error = {};
+      state.user = {};
+    },
+    [registerUser.fulfilled.type]: (state, action) => {
+      state.isLoading = false;
+      state.isAuth = true;
+      state.error = {};
+      state.user = action.payload;
+    },
+    [registerUser.rejected.type]: (state, action) => {
       state.isLoading = false;
       state.isAuth = false;
       state.error = action.payload;

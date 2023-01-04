@@ -8,9 +8,9 @@ const MainNavigation = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const menuItems = [
-    {title: "Main", hasChild: 0, link: "/"},
-    {title: "Login", hasChild: 0, link: "/login"},
-    {title: "Registration", hasChild: 0, link: "/register"}
+    {id: 1, title: "Main", hasChild: 0, link: "/"},
+    {id: 2, title: "Login", hasChild: 0, link: "/login"},
+    {id: 3, title: "Registration", hasChild: 0, link: "/register"}
   ];
 
   const onClickToggleBars = (e) => {
@@ -27,14 +27,17 @@ const MainNavigation = () => {
         <span></span>
         <span></span>
       </div>
-      <div className={`hiddenToggleMenuWrapper ${toggleMenu?"toggleActive":""}`} onClick={onClickToggleBars}>
+      <div className={`hiddenToggleMenuWrapper ${toggleMenu?"toggleActive":""}`}>
+        <div className="hiddenBackground" onClick={onClickToggleBars}>
+          
+        </div>
         <div className='hiddenMenuItems'>
           <div className='closeMenuBtn' onClick={onClickToggleBars}>
             <span></span>
             <span></span>
           </div>
           {menuItems.map((item)=>{
-            return <div className='hiddenMenuItemsInner'><NavLink onClick={onClickToggleBars} to={item.link}>{item.title}</NavLink></div>
+            return <div key={item.id} className='hiddenMenuItemsInner'><NavLink onClick={onClickToggleBars} to={item.link}>{item.title}</NavLink></div>
           })}
         </div>
 
