@@ -34,7 +34,7 @@ const ToDoItem = ({item}) => {
   }
 
   return (
-       item? <div  className={ToDoItemCss.toDoItem} ref={ref} style={{ boxShadow: item.isComplete && "none",opacity: item.isComplete && 0.6, background: item.isComplete && "rgba(125, 125, 125, 0.11)"}}>
+       item? <div className={ToDoItemCss.toDoItem} ref={ref} style={{ boxShadow: item.isComplete && "none",opacity: item.isComplete && 0.6, background: item.isComplete && "rgba(125, 125, 125, 0.11)"}}>
         <animated.div style={crossLineStyle} className={ToDoItemCss.overCrossLineAnimated}></animated.div>
           <CustomCheckbox item={item} isAuth={isAuth}/>
           <div className={ToDoItemCss.toDoItemText}>{item.title}</div>

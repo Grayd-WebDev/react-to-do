@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { logoutUser, loginUser } from "../actionCreators";
 
 const mainSlice = createSlice({
   name: "main",
   initialState: {
     toDos: [],
+    didLogout: false,
   },
   reducers: {
     addToDo(state, action) {
@@ -20,7 +22,16 @@ const mainSlice = createSlice({
           return i;
       });
     },
+
   },
+  extraReducers:{
+    [logoutUser.fulfilled.type]:(state,action)=>{
+      state.didLogout = true;
+    },
+    [loginUser.fulfilled.type]:(state,action)=>{
+      state.didLogout = false;
+    },
+  }
 });
 
 export default mainSlice.reducer;

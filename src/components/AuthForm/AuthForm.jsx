@@ -20,8 +20,8 @@ const AuthForm = ({authFn, inputList, setPassword}) => {
       /*
         This password field is only for comparing 
         password and confirm password fields in 
-        parent component RegisterPage.jsx; So i
-        just need it. =_=
+        parent component RegisterPage.jsx; 
+        we just need it. =_=
       */
       if(name === "password"){
         setPassword(value);
@@ -31,17 +31,13 @@ const AuthForm = ({authFn, inputList, setPassword}) => {
         ...formData,
         [name]: value
       });
-      console.log(name,value);
     }
 
     const handleSubmit =  (e) => {
-        console.log(formData);
         e.preventDefault();
         const {email, password} = formData;
         dispatch(authFn({email, password, navigate}));
     }
-
-    console.log(auth.error);
 
     return (
       <div className='AuthForm'>

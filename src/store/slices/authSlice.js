@@ -4,7 +4,7 @@ import {
   loginUser,
   logoutUser,
   registerUser
-} from "../actionCreators/actionCreators";
+} from "../actionCreators";
 
 export const authSlice = createSlice({
   name: "auth",

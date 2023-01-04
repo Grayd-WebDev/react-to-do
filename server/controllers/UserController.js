@@ -21,6 +21,7 @@ class UserController {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
       });
+    
       return res.status(200).json({ userData });
     } catch (error) {
       next(ApiError.BadRequest(error));
@@ -58,7 +59,6 @@ class UserController {
       return res.status(200).json({ ...userData });
     } catch (error) {
       console.log("error");
-
       next(ApiError.BadRequest(error));
     }
   }

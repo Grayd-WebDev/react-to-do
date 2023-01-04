@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import {isEmpty} from "../../helpers/helperFunctions.js";
 
 import { RiUserLine } from 'react-icons/ri';
 import {FiSettings, FiLogOut} from "react-icons/fi";
@@ -36,8 +35,8 @@ const ProfileMenu = () => {
                  isAuth ?
                  <>
                     <NavLink to={'/profile'}><FiSettings/></NavLink>
-                    <span>
-                        <FiLogOut onClick={()=>{dispatch(logoutUser())}}/>
+                    <span onClick={()=>{dispatch(logoutUser())}}>
+                        <FiLogOut/>
                     </span>
                  </>
                  :

@@ -8,24 +8,22 @@ import ToDoItem from '../ToDoItem/ToDoItem'
 import ToDoListCss from "./ToDoList.module.css";
 
 const ToDoList = () => {
-  const {toDos} = useSelector(state => state.main);
+  //didLogout is related to a weird bug here that needs to be fixed;
+  //rn i don`t know how. :c
+  const {toDos, didLogout} = useSelector(state => state.main);
   const {isAuth} = useSelector(state => state.auth);
   const items = useGetToDosQuery();
 
   let toDosData = [];
-  // if(isAuth && !items.isLoading){
-  //   toDosData = [...items?.data?.toDos.toDos];
-  // }else{
-  //   toDosData = [...toDos];
-  // }
 
-  if(isAuth && !items.isLoading){
-    toDosData = [...items?.data?.toDos.toDos];
+  if(isAuth && items.isSuccess){
+    toDosData = [...items.data.toDos.toDos];
   }else{
     toDosData = [...toDos];
   }
 
-  if(items.isLoading  && !toDosData)
+
+  if(items.isLoading)
     return <LoadingSpinner scaleSet={0.5}/>;
 
   return (
